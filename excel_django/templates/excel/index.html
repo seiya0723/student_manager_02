@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+	<title>エクセルファイルダウンローダー</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+</head>
+<body>
+	<h1 class="text-white bg-primary text-center">エクセルファイルダウンローダー</h1>
+        
+    
+    <main class="container">
+
+        <form action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="file" name="content">
+            <input type="submit" value="送信">
+        </form>
+
+        {% for document in documents %}
+        <div>
+            <a href="{{ document.content.url }}">{{ document.content }}をDL</a>
+            
+            <form action="{% url 'excel:download' document.id %}" method="POST" style="display:inline-block;">
+                {% csrf_token %}
+                <input class="btn btn-primary" type="submit" value="ダウンロード">
+            </form>
+        </div>
+        {% endfor %}
+
+    
+    </main>
+
+
+</body>
+</html>
+

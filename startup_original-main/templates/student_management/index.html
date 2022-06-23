@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>test</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+<body>
+
+    {% for message in messages %}
+    <li>{{ message }}</li>
+    {% endfor %}
+
+    <form action="" method="POST">
+        {% csrf_token %}
+        <input type="text" name="name" placeholder="校舎名">
+        <textarea name="description" placeholder="備考"></textarea>
+        <input type="submit" value="送信">
+    </form>
+
+    {% for building in buildings %}
+    <div class="border">
+        <div>{{ building.dt }}</div>    
+        <div>{{ building.id }}:{{ building.name }}  在籍生徒数  {{ building.count_students }}</div>
+
+        <!-- {% for student in building.student_list %}
+            <div>{{ student }}</div>
+        {% endfor %} -->
+
+        <div>{{ building.student_list|linebreaksbr }}</div>
+       
+        <div>{{ building.description|default:"" }}</div>
+    </div>
+    {% endfor %}
+
+</body>
+</html>
